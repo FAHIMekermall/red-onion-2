@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom"
+import Cart from "./Pages/Cart/Cart"
 import Breakfast from "./Pages/Home/Foods/Breakfast/Breakfast"
 import Dinner from "./Pages/Home/Foods/Dinner/Dinner"
 import Lunch from "./Pages/Home/Foods/Lunch/Lunch"
@@ -7,6 +8,7 @@ import Login from "./Pages/Login/Login"
 import Register from "./Pages/Register/Register"
 import Footer from "./Shared/Footer/Footer"
 import Header from "./Shared/Header/Header"
+import RecquireAuth from "./utils/RecquireAuth"
 
 function App() {
 	return (
@@ -23,6 +25,14 @@ function App() {
 				</Route>
 				<Route path="/login" element={<Login></Login>}></Route>
 				<Route path="/register" element={<Register></Register>}></Route>
+				<Route
+					path="/cart"
+					element={
+						<RecquireAuth>
+							<Cart></Cart>
+						</RecquireAuth>
+					}
+				></Route>
 			</Routes>
 			<Footer></Footer>
 		</div>

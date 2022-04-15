@@ -11,7 +11,7 @@ const Foods = () => {
 							? { color: "red", borderBottom: "2px solid red" }
 							: {}
 					}}
-					className="mx-6 text-2xl font-serif rounded-sm"
+					className="mx-6 text-2xl font-bold rounded-sm"
 					to="/foods-breakfast"
 				>
 					Breakfast
@@ -22,7 +22,7 @@ const Foods = () => {
 							? { color: "red", borderBottom: "2px solid red" }
 							: {}
 					}}
-					className="mx-6 text-2xl font-serif rounded-sm"
+					className="mx-6 text-2xl rounded-sm font-bold"
 					to="/"
 				>
 					Lunch
@@ -33,7 +33,7 @@ const Foods = () => {
 							? { color: "red", borderBottom: "2px solid red" }
 							: {}
 					}}
-					className="mx-6 text-2xl font-serif rounded-sm"
+					className="mx-6 text-2xl rounded-sm font-bold"
 					to="/foods-dinner"
 				>
 					Dinner

@@ -3,15 +3,17 @@ import logo from "../../assets/logo/logo2.png"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import SocialLogin from "../../Shared/Social-Login/SocialLogin"
-import { onAuthStateChanged } from "firebase/auth"
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import auth from "../../firebase.init"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 	const [showPass, setShowPass] = useState(false)
 	const navigate = useNavigate()
 	const location = useLocation()
 	const from = location.state?.from?.pathname || "/"
-	const [user, setUser] = useState()
+	const [user, setUser] = useState(null)
 
 	onAuthStateChanged(auth, (user) => {
 		if (user) {
@@ -24,10 +26,20 @@ const Login = () => {
 	if (user) {
 		navigate(from, { replace: true })
 	}
+	const notify = (text) => toast(text);
+	const handleLogin = (event) => {
+		event.preventDefault()
+		const email = event.target.email.value
+		const password = event.target.password.value
+		signInWithEmailAndPassword(auth, email, password)
+			.then((user) => console.log(user))
+			.catch((error) => notify(error.message))
+	}
 
 	return (
 		<div className="flex flex-col items-center min-h-[100vh]">
-			<form className="flex flex-col w-[560px]">
+			<ToastContainer/>
+			<form onSubmit={handleLogin} className="flex flex-col w-[560px]">
 				<img
 					className="mt-16 mb-8 mx-auto"
 					src={logo}
@@ -55,13 +67,15 @@ const Login = () => {
 					<span className="absolute right-5">
 						{!showPass ? (
 							<AiFillEyeInvisible
+								className="cursor-pointer"
 								size={"1.5em"}
-								onClick={() => setShowPass(!showPass)}
+								onClick={() => setShowPass(true)}
 							/>
 						) : (
 							<AiFillEye
+								className="cursor-pointer"
 								size={"1.5em"}
-								onClick={() => setShowPass(!showPass)}
+								onClick={() => setShowPass(false)}
 							/>
 						)}
 					</span>

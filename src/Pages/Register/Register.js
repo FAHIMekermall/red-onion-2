@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import SocialLogin from "../../Shared/Social-Login/SocialLogin"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
@@ -10,14 +10,13 @@ import {
 	updateProfile,
 } from "firebase/auth"
 import auth from "../../firebase.init"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const Register = () => {
+	const notify = (text) => toast(text)
 	const [showPass, setShowPass] = useState(false)
 	const [showConfirmPass, setShowConfirmPass] = useState(false)
-	const [error, setError] = useState()
-	useEffect(() => {
-		setTimeout(() => setError(""), [5000])
-	}, [error])
 	const location = useLocation()
 	const from = location.state?.from?.pathname || "/"
 	const [user, setUser] = useState()
@@ -30,7 +29,6 @@ const Register = () => {
 			setUser(null)
 		}
 	})
-
 	if (user) {
 		navigate(from, { replace: true })
 	}
@@ -42,8 +40,7 @@ const Register = () => {
 		const password = event.target.password.value
 		const confirmPassword = event.target.confirmPassword.value
 		if (password !== confirmPassword) {
-			setError("Password mismatch")
-			return
+			return notify('password mismatch')
 		}
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((user) => {
@@ -54,11 +51,13 @@ const Register = () => {
 					displayName: name,
 				})
 			})
-			.catch((error) => console.log(error))
+			.catch((error) => notify(error.message))
 	}
 
 	return (
 		<div>
+			<ToastContainer />
+
 			<div className="flex flex-col items-center min-h-[100vh]">
 				<form
 					className="flex flex-col w-[560px]"
@@ -70,7 +69,6 @@ const Register = () => {
 						width={"200px"}
 						height={"200px"}
 						alt=""
-						draggable="false"
 					/>
 					<p className="text-center mb-6 text-4xl text-red-600">
 						Register
@@ -81,6 +79,7 @@ const Register = () => {
 						name="name"
 						placeholder="Full name"
 						id="name"
+						required
 					/>
 					<input
 						className="w-full focus:outline-none bg-slate-100  mb-4 h-16 pl-2 rounded-lg"
@@ -88,6 +87,7 @@ const Register = () => {
 						name="email"
 						placeholder="Email"
 						id="email"
+						required
 					/>
 					<p className="relative flex items-center mb-4">
 						<input
@@ -96,17 +96,18 @@ const Register = () => {
 							placeholder="Password"
 							name="password"
 							id="password"
+							required
 						/>
 						<span className="absolute right-5">
 							{!showPass ? (
 								<AiFillEyeInvisible
 									size={"1.5em"}
-									onClick={() => setShowPass(!showPass)}
+									onClick={() => setShowPass(true)}
 								/>
 							) : (
 								<AiFillEye
 									size={"1.5em"}
-									onClick={() => setShowPass(!showPass)}
+									onClick={() => setShowPass(false)}
 								/>
 							)}
 						</span>
@@ -123,25 +124,16 @@ const Register = () => {
 							{!showConfirmPass ? (
 								<AiFillEyeInvisible
 									size={"1.5em"}
-									onClick={() =>
-										setShowConfirmPass(!showConfirmPass)
-									}
+									onClick={() => setShowConfirmPass(true)}
 								/>
 							) : (
 								<AiFillEye
 									size={"1.5em"}
-									onClick={() =>
-										setShowConfirmPass(!showConfirmPass)
-									}
+									onClick={() => setShowConfirmPass(false)}
 								/>
 							)}
 						</span>
 					</p>
-					{error && (
-						<p style={{ color: "red", textAlign: "center" }}>
-							{error}
-						</p>
-					)}
 					<input
 						className="cursor-pointer bg-red-600 rounded my-4 h-16 text-2xl text-white"
 						type="submit"
