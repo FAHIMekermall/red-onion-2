@@ -6,7 +6,7 @@ const Food = ({ food: { name, image, description } }) => {
 		<div className="hover:shadow-2xl mb-6 w-[420px] grid justify-items-center p-12 rounded-3xl">
 			<img className="" src={image} alt="" />
 			<p className="text-center font-mono font-extrabold text-3xl uppercase my-3">{name}</p>
-			<p className="font-sans justify-center py-4">{description}</p>
+			<p className="font-sans text-gray-500 justify-center py-4">{description.slice(0,60)}...</p>
 			<Button className="mx-auto block my-2" variant="contained">Add to cart</Button>
 		</div>
 	)

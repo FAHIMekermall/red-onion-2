@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import Breakfast from "./Pages/Home/Foods/Breakfast/Breakfast"
+import Dinner from "./Pages/Home/Foods/Dinner/Dinner"
 import Lunch from "./Pages/Home/Foods/Lunch/Lunch"
 import Home from "./Pages/Home/Home"
 import Footer from "./Shared/Footer/Footer"
@@ -16,6 +17,7 @@ function App() {
 						element={<Breakfast></Breakfast>}
 					></Route>
 					<Route path="/" element={<Lunch />}></Route>
+					<Route path="/foods-dinner" element={<Dinner />}></Route>
 				</Route>
 			</Routes>
 			<Footer></Footer>
