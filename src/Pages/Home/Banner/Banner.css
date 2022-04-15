@@ -1,0 +1,8 @@
+.bg-bannerBackground{
+    background-image: url(../../../assets/Background/bannerbackground.png);
+    width: 100%;
+    height: 708px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
