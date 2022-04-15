@@ -1,19 +1,29 @@
 import React, { useState } from "react"
 import logo from "../../assets/logo/logo2.png"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
+import { Link } from "react-router-dom"
+import SocialLogin from "../../Shared/Social-Login/SocialLogin"
 
 const Login = () => {
 	const [showPass, setShowPass] = useState(false)
 	return (
-		<div className="grid justify-items-center h-[100vh]">
+		<div className="flex flex-col items-center min-h-[100vh]">
 			<form className="flex flex-col w-[560px]">
-				<img className="my-16 mx-auto" src={logo} width={"200px"} height={"200px"} alt="" />
+				<img
+					className="mt-16 mb-8 mx-auto"
+					src={logo}
+					width={"200px"}
+					height={"200px"}
+					alt=""
+                    draggable="false"
+				/>
+				<p className="text-center mb-6 text-4xl text-red-600">Login</p>
 				<input
 					className="w-full focus:outline-none bg-slate-100  mb-4 h-16 pl-2 rounded-lg"
-					type="text"
+					type="email"
 					name="email"
 					placeholder="Email"
-					id=""
+					id="email"
 				/>
 				<p className="relative flex items-center mb-4">
 					<input
@@ -21,7 +31,7 @@ const Login = () => {
 						type={!showPass ? "password" : "text"}
 						placeholder="Password"
 						name="password"
-						id=""
+						id="password"
 					/>
 					<span className="absolute right-5">
 						{!showPass ? (
@@ -43,6 +53,12 @@ const Login = () => {
 					value="Login"
 				/>
 			</form>
+			<Link className="text-red-600" to="/register">
+				Don't have an account?
+			</Link>
+			<div className="w-[560px]">
+				<SocialLogin></SocialLogin>
+			</div>
 		</div>
 	)
 }

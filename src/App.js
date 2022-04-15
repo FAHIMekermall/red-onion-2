@@ -4,6 +4,7 @@ import Dinner from "./Pages/Home/Foods/Dinner/Dinner"
 import Lunch from "./Pages/Home/Foods/Lunch/Lunch"
 import Home from "./Pages/Home/Home"
 import Login from "./Pages/Login/Login"
+import Register from "./Pages/Register/Register"
 import Footer from "./Shared/Footer/Footer"
 import Header from "./Shared/Header/Header"
 
@@ -21,6 +22,7 @@ function App() {
 					<Route path="/foods-dinner" element={<Dinner />}></Route>
 				</Route>
 				<Route path="/login" element={<Login></Login>}></Route>
+				<Route path="/register" element={<Register></Register>}></Route>
 			</Routes>
 			<Footer></Footer>
 		</div>
