@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import SocialLogin from "../../Shared/Social-Login/SocialLogin"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 import logo from "../../assets/logo/logo2.png"
 import {
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 	sendEmailVerification,
 	updateProfile,
 } from "firebase/auth"
@@ -17,6 +18,23 @@ const Register = () => {
 	useEffect(() => {
 		setTimeout(() => setError(""), [5000])
 	}, [error])
+	const location = useLocation()
+	const from = location.state?.from?.pathname || "/"
+	const [user, setUser] = useState()
+	const navigate = useNavigate()
+
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			setUser(user)
+		} else {
+			setUser(null)
+		}
+	})
+
+	if (user) {
+		navigate(from, { replace: true })
+	}
+
 	const handleSubmit = async (event) => {
 		event.preventDefault()
 		const name = event.target.name.value
@@ -52,7 +70,7 @@ const Register = () => {
 						width={"200px"}
 						height={"200px"}
 						alt=""
-                        draggable="false"
+						draggable="false"
 					/>
 					<p className="text-center mb-6 text-4xl text-red-600">
 						Register

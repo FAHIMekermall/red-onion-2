@@ -1,11 +1,30 @@
 import React, { useState } from "react"
 import logo from "../../assets/logo/logo2.png"
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import SocialLogin from "../../Shared/Social-Login/SocialLogin"
+import { onAuthStateChanged } from "firebase/auth"
+import auth from "../../firebase.init"
 
 const Login = () => {
 	const [showPass, setShowPass] = useState(false)
+	const navigate = useNavigate()
+	const location = useLocation()
+	const from = location.state?.from?.pathname || "/"
+	const [user, setUser] = useState()
+
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			setUser(user)
+		} else {
+			setUser(null)
+		}
+	})
+
+	if (user) {
+		navigate(from, { replace: true })
+	}
+
 	return (
 		<div className="flex flex-col items-center min-h-[100vh]">
 			<form className="flex flex-col w-[560px]">
@@ -15,7 +34,7 @@ const Login = () => {
 					width={"200px"}
 					height={"200px"}
 					alt=""
-                    draggable="false"
+					draggable="false"
 				/>
 				<p className="text-center mb-6 text-4xl text-red-600">Login</p>
 				<input
