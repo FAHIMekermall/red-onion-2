@@ -5,7 +5,7 @@ import { RiShoppingCartLine } from "react-icons/ri"
 
 const Header = () => {
 	return (
-		<header className="h-[80px] flex justify-between mx-32 items-center bg-white sticky top-0">
+		<header className="h-[80px] flex justify-between px-32 items-center bg-white sticky top-0">
 			<nav>
 				<Link to="/">
 					<img className="h-[50px]" src={logo} alt="" />
